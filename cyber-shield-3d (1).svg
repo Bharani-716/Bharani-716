@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="420">
+  <defs>
+    <linearGradient id="shieldFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4fc3f7"/>
+      <stop offset="55%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#02133d"/>
+    </linearGradient>
+    <linearGradient id="shieldSide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#010b26"/>
+      <stop offset="100%" stop-color="#04204d"/>
+    </linearGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e3f6ff" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#4fc3f7" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#4fc3f7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="scanFade" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#bde9ff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#bde9ff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="shieldClip">
+      <path d="M250 40 L400 100 L400 250 C400 350 330 420 250 460 C170 420 100 350 100 250 L100 100 Z"/>
+    </clipPath>
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="500" height="500" fill="none"/>
+
+  <!-- 3D side/base for depth -->
+  <path d="M250 55 L415 112 L415 258 C415 362 340 434 255 476 L250 460 L250 40 Z" fill="url(#shieldSide)" opacity="0.9"/>
+
+  <!-- main shield face -->
+  <path d="M250 40 L400 100 L400 250 C400 350 330 420 250 460 C170 420 100 350 100 250 L100 100 Z"
+        fill="url(#shieldFace)" stroke="#7fdcff" stroke-width="3" filter="url(#softGlow)"/>
+
+  <!-- inner beveled border for 3D feel -->
+  <path d="M250 60 L382 112 L382 250 C382 340 320 402 250 438 C180 402 118 340 118 250 L118 112 Z"
+        fill="none" stroke="#bfe9ff" stroke-width="1.5" opacity="0.55"/>
+
+  <!-- circuit grid clipped inside shield -->
+  <g clip-path="url(#shieldClip)" opacity="0.35" stroke="#bfe9ff" stroke-width="1">
+    <line x1="100" y1="150" x2="400" y2="150"/>
+    <line x1="100" y1="200" x2="400" y2="200"/>
+    <line x1="100" y1="280" x2="400" y2="280"/>
+    <line x1="100" y1="330" x2="400" y2="330"/>
+    <line x1="160" y1="40" x2="160" y2="460"/>
+    <line x1="250" y1="40" x2="250" y2="460"/>
+    <line x1="340" y1="40" x2="340" y2="460"/>
+    <circle cx="160" cy="200" r="4" fill="#bfe9ff"/>
+    <circle cx="340" cy="280" r="4" fill="#bfe9ff"/>
+    <circle cx="250" cy="330" r="4" fill="#bfe9ff"/>
+  </g>
+
+  <!-- radar sweep, rotating -->
+  <g clip-path="url(#shieldClip)">
+    <g transform-origin="250 250">
+      <path d="M250 250 L250 90 A160 160 0 0 1 380 320 Z" fill="url(#scanFade)">
+        <animateTransform attributeName="transform" type="rotate"
+          from="0 250 250" to="360 250 250" dur="4s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    <circle cx="250" cy="250" r="150" fill="none" stroke="#bfe9ff" stroke-width="1" opacity="0.4"/>
+    <circle cx="250" cy="250" r="100" fill="none" stroke="#bfe9ff" stroke-width="1" opacity="0.4"/>
+    <circle cx="250" cy="250" r="50"  fill="none" stroke="#bfe9ff" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <!-- pulsing glow behind lock -->
+  <circle cx="250" cy="250" r="70" fill="url(#coreGlow)">
+    <animate attributeName="r" values="55;80;55" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- lock icon -->
+  <g filter="url(#softGlow)">
+    <rect x="215" y="245" width="70" height="55" rx="8" fill="#e9f8ff" stroke="#0b2f6b" stroke-width="3"/>
+    <path d="M228 245 v-22 a22 22 0 0 1 44 0 v22" fill="none" stroke="#e9f8ff" stroke-width="10"/>
+    <circle cx="250" cy="270" r="7" fill="#0b2f6b"/>
+    <rect x="246" y="270" width="8" height="16" fill="#0b2f6b"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- orbiting security nodes -->
+  <g>
+    <circle cx="250" cy="130" r="6" fill="#7fdcff">
+      <animateTransform attributeName="transform" type="rotate" from="0 250 250" to="360 250 250" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="250" cy="370" r="6" fill="#7fdcff">
+      <animateTransform attributeName="transform" type="rotate" from="180 250 250" to="540 250 250" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="140" cy="250" r="5" fill="#e9f8ff">
+      <animateTransform attributeName="transform" type="rotate" from="90 250 250" to="450 250 250" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="360" cy="250" r="5" fill="#e9f8ff">
+      <animateTransform attributeName="transform" type="rotate" from="270 250 250" to="630 250 250" dur="8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
